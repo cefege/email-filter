@@ -2,8 +2,12 @@ import pandas as pd
 import streamlit as st
 
 def process_emails(email_list):
+
     # Remove any elements that do not contain '@'
     email_list = [email for email in email_list.split('\n') if '@' in email]
+
+    # remove duplicates
+    email_list = list(set(email_list))
 
     # Split the email list into a list of tuples containing the name and domain
     email_tuples = [(email.split('@')[0], email.split('@')[1]) for email in email_list]
