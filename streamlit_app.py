@@ -6,6 +6,9 @@ def process_emails(email_list):
     # Remove any elements that do not contain '@'
     email_list = [email for email in email_list.split('\n') if '@' in email]
 
+    # convert all emails to lowercase
+    email_list = [email.lower() for email in email_list]
+
     # remove duplicates
     email_list = list(set(email_list))
 
