@@ -37,8 +37,8 @@ def process_emails(email_list):
 def app():
     # Define a text input for the list of emails
     email_list = st.text_area(
-        """Enter a list of emails (one email per line). 
-        All duplicates will be removed 
+        """Enter a list of emails (one email per line). \n
+        All duplicates will be removed. \n
         The list will be sorted by email domain in alphabateical order and then by name.
         """
     )
