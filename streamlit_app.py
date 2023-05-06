@@ -9,6 +9,9 @@ def process_emails(email_list):
     # convert all emails to lowercase
     email_list = [email.lower() for email in email_list]
 
+    # remove any leading or trailing whitespace
+    email_list = [email.strip() for email in email_list]
+
     # remove duplicates
     email_list = list(set(email_list))
 
@@ -36,11 +39,20 @@ def app():
     email_list = st.text_area(
         "Enter a list of emails (one email per line). All duplicates will be removed and the list will be sorted by email domain in alphabateical order."
     )
+    #  (Optional) Add a "Submit" button to trigger the processing of the emails
+    emails_to_remove = st.text_area(
+        "(OPTIONAL) Enter a list of emails to remove from the original list (one email per line). "
+    )
 
     # Add a "Submit" button to trigger the processing of the emails
     if st.button("Submit"):
         # Process the email list using the process_emails function
         output_df = process_emails(email_list)
+
+        emails_to_remove = process_emails(emails_to_remove)
+
+        # only keep emails that are in output_df and not in emails_to_remove
+        output_df = output_df[~output_df["email"].isin(emails_to_remove["email"])]
 
         # convert column "email" to a string split by \n
         output_df = output_df["email"].str.cat(sep="\n")
